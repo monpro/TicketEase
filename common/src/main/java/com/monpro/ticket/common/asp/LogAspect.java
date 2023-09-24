@@ -1,4 +1,4 @@
-package com.monpro.ticket.member.aspect;
+package com.monpro.ticket.common.asp;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.PropertyPreFilters;
@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class LogAspect {
     public LogAspect() {
-       LOG.info("LogAspect");
+       LOG.info("Common LogAspect");
     }
 
     private final static Logger LOG = LoggerFactory.getLogger(LogAspect.class);
