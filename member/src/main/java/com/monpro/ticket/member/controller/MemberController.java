@@ -1,6 +1,7 @@
 package com.monpro.ticket.member.controller;
 
 
+import com.monpro.ticket.common.resp.ApiResponse;
 import com.monpro.ticket.member.req.MemberRegisterRequest;
 import com.monpro.ticket.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,14 @@ public class MemberController {
     }
 
     @GetMapping("/count")
-    public int count() {
-        return memberService.count();
+    public ApiResponse<Integer> count() {
+        return ApiResponse.<Integer>builder().content(memberService.count()).build();
     }
 
     @PostMapping("/register")
-    public long register(MemberRegisterRequest memberRegisterRequest) {
-        return memberService.register(memberRegisterRequest);
+    public ApiResponse<Long> register(MemberRegisterRequest memberRegisterRequest) {
+        final long register = memberService.register(memberRegisterRequest);
+
+        return ApiResponse.<Long>builder().content(register).build();
     }
 }
