@@ -1,6 +1,7 @@
 package com.monpro.ticket.member.controller;
 
 
+import com.monpro.ticket.member.req.MemberRegisterRequest;
 import com.monpro.ticket.member.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,7 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public long register(String mobile) {
-        System.out.println("modile is" + mobile);
-        return memberService.register(mobile);
+    public long register(MemberRegisterRequest memberRegisterRequest) {
+        return memberService.register(memberRegisterRequest);
     }
 }

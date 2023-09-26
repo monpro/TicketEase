@@ -3,6 +3,7 @@ package com.monpro.ticket.member.service;
 import com.monpro.ticket.member.domain.Member;
 import com.monpro.ticket.member.domain.MemberExample;
 import com.monpro.ticket.member.mapper.MemberMapper;
+import com.monpro.ticket.member.req.MemberRegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class MemberService {
         return Math.toIntExact(memberMapper.countByExample(null));
     }
 
-    public long register(String mobile) {
+    public long register(MemberRegisterRequest request) {
+        String mobile = request.getMobile();
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> members = memberMapper.selectByExample(memberExample);
