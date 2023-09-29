@@ -21,13 +21,13 @@ public class MemberController {
 
     @GetMapping("/count")
     public ApiResponse<Integer> count() {
-        return ApiResponse.<Integer>builder().content(memberService.count()).build();
+        return new ApiResponse<>(memberService.count());
     }
 
     @PostMapping("/register")
     public ApiResponse<Long> register(MemberRegisterRequest memberRegisterRequest) {
         final long register = memberService.register(memberRegisterRequest);
 
-        return ApiResponse.<Long>builder().content(register).build();
+        return new ApiResponse<>(register);
     }
 }
