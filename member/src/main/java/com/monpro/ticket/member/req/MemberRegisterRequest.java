@@ -1,6 +1,11 @@
 package com.monpro.ticket.member.req;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class MemberRegisterRequest {
+    @NotBlank(message = "mobile should not be empty")
+    @Pattern(regexp="(^$|[0-9]{10})")
     private String mobile;
 
     public String getMobile() {

@@ -4,6 +4,7 @@ package com.monpro.ticket.member.controller;
 import com.monpro.ticket.common.resp.ApiResponse;
 import com.monpro.ticket.member.req.MemberRegisterRequest;
 import com.monpro.ticket.member.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public ApiResponse<Long> register(MemberRegisterRequest memberRegisterRequest) {
+    public ApiResponse<Long> register(@Valid MemberRegisterRequest memberRegisterRequest) {
         final long register = memberService.register(memberRegisterRequest);
 
         return new ApiResponse<>(register);

@@ -4,6 +4,7 @@ import com.monpro.ticket.common.exception.BusinessException;
 import com.monpro.ticket.common.resp.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,16 @@ public class ControllerExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setSuccess(false);
         response.setMessage(e.getExceptionEnum().getDesc());
+        return response;
+    }
+
+    @ExceptionHandler(value = BindException.class)
+    @ResponseBody
+    public ApiResponse exceptionHandler(BindException e) {
+        LOG.error("Validation Exception occurred: ", e);
+        ApiResponse response = new ApiResponse();
+        response.setSuccess(false);
+        response.setMessage(e.getBindingResult().getAllErrors().toString());
         return response;
     }
 
