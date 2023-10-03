@@ -2,6 +2,7 @@ package com.monpro.ticket.member.service;
 
 import com.monpro.ticket.common.exception.BusinessException;
 import com.monpro.ticket.common.exception.BusinessExceptionEnum;
+import com.monpro.ticket.common.util.SnowFlakeUtil;
 import com.monpro.ticket.member.domain.Member;
 import com.monpro.ticket.member.domain.MemberExample;
 import com.monpro.ticket.member.mapper.MemberMapper;
@@ -33,8 +34,7 @@ public class MemberService {
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         } else {
             Member member = new Member();
-            //TODO: use uuid in production
-            member.setId(System.currentTimeMillis());
+            member.setId(SnowFlakeUtil.getSnowflakeNextId());
             member.setMobile(mobile);
             memberMapper.insert(member);
             return member.getId();
