@@ -1,5 +1,7 @@
 package com.monpro.ticket.member.service;
 
+import com.monpro.ticket.common.exception.BusinessException;
+import com.monpro.ticket.common.exception.BusinessExceptionEnum;
 import com.monpro.ticket.member.domain.Member;
 import com.monpro.ticket.member.domain.MemberExample;
 import com.monpro.ticket.member.mapper.MemberMapper;
@@ -28,7 +30,7 @@ public class MemberService {
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> members = memberMapper.selectByExample(memberExample);
         if (!members.isEmpty()) {
-            throw new RuntimeException("Mobile has been registered");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         } else {
             Member member = new Member();
             //TODO: use uuid in production
