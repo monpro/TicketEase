@@ -2,6 +2,7 @@ package com.monpro.ticket.member.controller;
 
 
 import com.monpro.ticket.common.resp.ApiResponse;
+import com.monpro.ticket.member.req.MemberLoginCodeRequest;
 import com.monpro.ticket.member.req.MemberRegisterRequest;
 import com.monpro.ticket.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -31,4 +32,10 @@ public class MemberController {
 
         return new ApiResponse<>(register);
     }
+    @PostMapping("/loginCode")
+    public ApiResponse<String> loginCode(@Valid MemberLoginCodeRequest memberLoginCodeRequest) {
+        final String loginCode = memberService.loginCode(memberLoginCodeRequest);
+        return new ApiResponse<>(loginCode);
+    }
+
 }
