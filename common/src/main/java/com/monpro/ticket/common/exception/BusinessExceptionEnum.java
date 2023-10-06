@@ -2,7 +2,8 @@ package com.monpro.ticket.common.exception;
 
 
 public enum BusinessExceptionEnum {
-    MEMBER_MOBILE_EXIST("MEMBER_MOBILE_EXIST");
+    MEMBER_MOBILE_EXIST("MEMBER_MOBILE_EXIST"),
+    LOGIN_CODE_REQUEST_TOO_OFTEN("LOGIN_CODE_REQUEST_TOO_OFTEN");
     private String desc;
     BusinessExceptionEnum(String desc) {
         this.desc = desc;

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 public class MemberLoginCodeRequest {
 
     @NotBlank(message = "mobile should not be empty")
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @Pattern(regexp = "(^$|[0-9]{10})")
     private String mobile;
 
     public String getMobile() {

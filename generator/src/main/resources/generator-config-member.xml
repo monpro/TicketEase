@@ -33,6 +33,7 @@
                              targetPackage="com.monpro.ticket.member.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="member" domainObjectName="Member"/>
+<!--        <table tableName="member" domainObjectName="Member"/>-->
+        <table tableName="member_login" domainObjectName="MemberLogin"/>
     </context>
 </generatorConfiguration>
