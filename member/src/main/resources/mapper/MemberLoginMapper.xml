@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.monpro.ticket.member.mapper.MemberLoginMapper">
+  <resultMap id="BaseResultMap" type="com.monpro.ticket.member.domain.MemberLogin">
+    <id column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code_generate_timestamp" jdbcType="TIMESTAMP" property="codeGenerateTimestamp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mobile, code, code_generate_timestamp
+  </sql>
+  <select id="selectByExample" parameterType="com.monpro.ticket.member.domain.MemberLoginExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_login
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from member_login
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.monpro.ticket.member.domain.MemberLoginExample">
+    delete from member_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.monpro.ticket.member.domain.MemberLogin">
+    insert into member_login (mobile, code, code_generate_timestamp
+      )
+    values (#{mobile,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{codeGenerateTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.monpro.ticket.member.domain.MemberLogin">
+    insert into member_login
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="codeGenerateTimestamp != null">
+        code_generate_timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeGenerateTimestamp != null">
+        #{codeGenerateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.monpro.ticket.member.domain.MemberLoginExample" resultType="java.lang.Long">
+    select count(*) from member_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update member_login
+    <set>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeGenerateTimestamp != null">
+        code_generate_timestamp = #{record.codeGenerateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update member_login
+    set mobile = #{record.mobile,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      code_generate_timestamp = #{record.codeGenerateTimestamp,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.monpro.ticket.member.domain.MemberLogin">
+    update member_login
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeGenerateTimestamp != null">
+        code_generate_timestamp = #{codeGenerateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.monpro.ticket.member.domain.MemberLogin">
+    update member_login
+    set code = #{code,jdbcType=VARCHAR},
+      code_generate_timestamp = #{codeGenerateTimestamp,jdbcType=TIMESTAMP}
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </update>
+</mapper>
