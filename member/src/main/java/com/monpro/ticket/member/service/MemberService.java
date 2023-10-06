@@ -11,6 +11,7 @@ import com.monpro.ticket.member.domain.MemberLoginExample;
 import com.monpro.ticket.member.mapper.MemberLoginMapper;
 import com.monpro.ticket.member.mapper.MemberMapper;
 import com.monpro.ticket.member.req.MemberLoginCodeRequest;
+import com.monpro.ticket.member.req.MemberLoginRequest;
 import com.monpro.ticket.member.req.MemberRegisterRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,6 +79,20 @@ public class MemberService {
                     return updateLoginCode(mobile);
                 }
             }
+        }
+    }
+
+    public void login(MemberLoginRequest request) {
+        String mobile = request.getMobile();
+        String code = request.getCode();
+        MemberLoginExample memberLoginExample = new MemberLoginExample();
+        memberLoginExample.createCriteria().andMobileEqualTo(mobile).andCodeEqualTo(code);
+        List<MemberLogin> memberLogins = memberLoginMapper.selectByExample(memberLoginExample);
+        if (memberLogins.isEmpty()) {
+            log.info("login code is not correct");
+            throw new BusinessException(BusinessExceptionEnum.LOGIN_CODE_NOT_CORRECT);
+        } else {
+            log.info("login code is correct");
         }
     }
 
