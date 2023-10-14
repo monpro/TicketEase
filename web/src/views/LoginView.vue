@@ -25,7 +25,7 @@
         >
           <a-input v-model:value="formState.code" placeholder="code">
             <template #addonAfter>
-              <a type="primary">get code</a>
+              <a type="primary" @click="onSendCode">get code</a>
             </template>
           </a-input>
         </a-form-item>
@@ -40,6 +40,8 @@
 
 <script>
 import { defineComponent, reactive } from "vue";
+import axios from "axios";
+
 export default defineComponent({
   setup() {
     const formState = reactive({
@@ -52,10 +54,28 @@ export default defineComponent({
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
+
+    const onSendCode = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/member/member/loginCode",
+          {
+            mobile: formState.mobile,
+          }
+        );
+
+        const receivedCode = response.data.content;
+        formState.code = receivedCode;
+        console.log("Login code sent successfully:", receivedCode);
+      } catch (error) {
+        console.error("Error sending login code:", error);
+      }
+    };
     return {
       formState,
       onFinish,
       onFinishFailed,
+      onSendCode,
     };
   },
 });

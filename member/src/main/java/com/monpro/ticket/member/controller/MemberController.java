@@ -7,10 +7,7 @@ import com.monpro.ticket.member.req.MemberLoginRequest;
 import com.monpro.ticket.member.req.MemberRegisterRequest;
 import com.monpro.ticket.member.service.MemberService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/member")
@@ -34,13 +31,13 @@ public class MemberController {
         return new ApiResponse<>(register);
     }
     @PostMapping("/loginCode")
-    public ApiResponse<String> loginCode(@Valid MemberLoginCodeRequest memberLoginCodeRequest) {
+    public ApiResponse<String> loginCode(@Valid @RequestBody MemberLoginCodeRequest memberLoginCodeRequest) {
         final String loginCode = memberService.loginCode(memberLoginCodeRequest);
         return new ApiResponse<>(loginCode);
     }
 
     @PostMapping("/login")
-    public ApiResponse<String> login(@Valid MemberLoginRequest memberLoginRequest) {
+    public ApiResponse<String> login(@Valid @RequestBody MemberLoginRequest memberLoginRequest) {
         memberService.login(memberLoginRequest);
         return new ApiResponse<>("login successfully");
     }
