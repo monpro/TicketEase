@@ -31,7 +31,9 @@
         </a-form-item>
 
         <a-form-item>
-          <a-button type="primary" block html-type="submit">Submit</a-button>
+          <a-button type="primary" block html-type="submit" @click="onLogin"
+            >Submit</a-button
+          >
         </a-form-item>
       </a-form>
     </a-col>
@@ -40,6 +42,8 @@
 
 <script>
 import { defineComponent, reactive } from "vue";
+import { message } from "ant-design-vue";
+
 import axios from "axios";
 
 export default defineComponent({
@@ -71,11 +75,23 @@ export default defineComponent({
         console.error("Error sending login code:", error);
       }
     };
+    const onLogin = async () => {
+      try {
+        await axios.post("http://localhost:8000/member/member/login", {
+          ...formState,
+        });
+
+        message.info("Login successful!");
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    };
     return {
       formState,
       onFinish,
       onFinishFailed,
       onSendCode,
+      onLogin,
     };
   },
 });
