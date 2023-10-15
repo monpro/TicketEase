@@ -46,12 +46,9 @@ export default defineComponent({
     });
     const onSendCode = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:8000/member/member/loginCode",
-          {
-            mobile: formState.mobile,
-          }
-        );
+        const response = await axios.post("/member/member/loginCode", {
+          mobile: formState.mobile,
+        });
 
         const data = response.data;
         if (data.success) {
@@ -66,12 +63,9 @@ export default defineComponent({
     };
     const onLogin = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:8000/member/member/login",
-          {
-            ...formState,
-          }
-        );
+        const response = await axios.post("/member/member/login", {
+          ...formState,
+        });
         const data = response.data;
         if (data.success) {
           formState.code = data.code;
