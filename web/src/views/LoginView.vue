@@ -35,11 +35,13 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { message } from "ant-design-vue";
+import { useRouter } from "vue-router";
 
 import axios from "axios";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const formState = reactive({
       mobile: "",
       code: "",
@@ -73,6 +75,7 @@ export default defineComponent({
           message.error(data.message);
         }
         message.info("Login successful!");
+        await router.push("/");
       } catch (error) {
         console.error("Error during login:", error);
       }
