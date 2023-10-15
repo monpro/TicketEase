@@ -2,13 +2,7 @@
   <a-row class="login">
     <a-col :span="8" :offset="8" class="login-main">
       <h1 style="text-align: center">Ticket System</h1>
-      <a-form
-        :model="formState"
-        name="basic"
-        autocomplete="off"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-      >
+      <a-form :model="formState" name="basic" autocomplete="off">
         <a-form-item
           label=""
           name="mobile"
@@ -31,9 +25,7 @@
         </a-form-item>
 
         <a-form-item>
-          <a-button type="primary" block html-type="submit" @click="onLogin"
-            >Submit</a-button
-          >
+          <a-button type="primary" block @click="onLogin">Submit</a-button>
         </a-form-item>
       </a-form>
     </a-col>
@@ -52,13 +44,6 @@ export default defineComponent({
       mobile: "",
       code: "",
     });
-    const onFinish = (values) => {
-      console.log("Success:", values);
-    };
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
-
     const onSendCode = async () => {
       try {
         const response = await axios.post(
@@ -68,19 +53,31 @@ export default defineComponent({
           }
         );
 
-        const receivedCode = response.data.content;
-        formState.code = receivedCode;
-        console.log("Login code sent successfully:", receivedCode);
+        const data = response.data;
+        if (data.success) {
+          formState.code = data.content;
+        } else {
+          message.error(data.message);
+        }
+        console.log("Login code sent successfully");
       } catch (error) {
         console.error("Error sending login code:", error);
       }
     };
     const onLogin = async () => {
       try {
-        await axios.post("http://localhost:8000/member/member/login", {
-          ...formState,
-        });
-
+        const response = await axios.post(
+          "http://localhost:8000/member/member/login",
+          {
+            ...formState,
+          }
+        );
+        const data = response.data;
+        if (data.success) {
+          formState.code = data.code;
+        } else {
+          message.error(data.message);
+        }
         message.info("Login successful!");
       } catch (error) {
         console.error("Error during login:", error);
@@ -88,8 +85,6 @@ export default defineComponent({
     };
     return {
       formState,
-      onFinish,
-      onFinishFailed,
       onSendCode,
       onLogin,
     };
